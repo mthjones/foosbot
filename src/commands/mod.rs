@@ -6,26 +6,6 @@ use rand::{self, Rng};
 
 use slackbot::{CommandHandler,Sender};
 
-pub struct HelpCommandHandler;
-
-impl CommandHandler for HelpCommandHandler {
-    fn handle(&mut self, sender: &mut Sender, _: &Vec<String>) {
-        // I want this all in one multi-line message as per the Slack docs (https://api.slack.com/docs/formatting),
-        // but it doesn't want to work, using a multi-line string, adding in \n, or escaped \n (\\n).
-        sender.channel.write("foosbot, here to serve. beep boop.").unwrap();
-        sender.channel.write("  !foos || !foos help -- displays the commands").unwrap();
-        sender.channel.write("  !foos register -- register to play that day").unwrap();
-        sender.channel.write("  !foos unregister -- unregister to play that day, if previously registered").unwrap();
-        sender.channel.write("  !foos info -- see who's currently registered").unwrap();
-        sender.channel.write("  !foos game -- start a game now").unwrap();
-/*
-!foos game 3:00pm -- schedule a game at 3pm
-!foos stats -- see the current statistics
-!foos stats [user1+user2]:[user3+user4]=10:2 -- input a game's stats
-*/
-    }
-}
-
 pub struct RegisterCommandHandler {
     registered_users: Rc<RefCell<HashSet<String>>>
 }
