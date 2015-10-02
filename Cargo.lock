@@ -3,7 +3,7 @@ name = "foosbot"
 version = "0.1.0"
 dependencies = [
  "rand 0.3.11 (registry+https://github.com/rust-lang/crates.io-index)",
- "slackbot 0.1.0",
+ "slackbot 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -230,6 +230,7 @@ dependencies = [
 [[package]]
 name = "slackbot"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "serde_json 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "slack 0.8.1 (registry+https://github.com/rust-lang/crates.io-index)",
