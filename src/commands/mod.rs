@@ -19,11 +19,12 @@ impl RegisterCommandHandler {
 }
 
 impl CommandHandler for RegisterCommandHandler {
-    fn handle(&mut self, sender: &mut Sender, _: &Vec<String>) {
-        if self.registered_users.borrow_mut().insert(sender.user.name.clone()) {
-            sender.channel.write(format!("Added {0} to the daily foosball pool!", sender.user.name)).unwrap();
+    fn handle(&mut self, sender: &mut Sender, args: &Vec<String>) {
+        let username = if args.len() > 0 { args[0].clone() } else { sender.user.name.clone() };
+        if self.registered_users.borrow_mut().insert(username.clone()) {
+            sender.channel.write(format!("Added {0} to the daily foosball pool!", username)).unwrap();
         } else {
-            sender.channel.write(format!("{0} is already in the daily foosball pool.", sender.user.name)).unwrap();
+            sender.channel.write(format!("{0} is already in the daily foosball pool.", username)).unwrap();
         }
     }
 }
