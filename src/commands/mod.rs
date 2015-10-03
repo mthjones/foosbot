@@ -2,9 +2,10 @@ use std::cell::RefCell;
 use std::collections::HashSet;
 use std::rc::Rc;
 
-use rand::{self, Rng};
+use rand;
+use rand::Rng;
 
-use slackbot::{CommandHandler,Sender};
+use slackbot::{CommandHandler, Sender};
 
 pub struct RegisterCommandHandler {
     registered_users: Rc<RefCell<HashSet<String>>>

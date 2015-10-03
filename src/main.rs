@@ -9,7 +9,14 @@ use std::rc::Rc;
 use slackbot::{SlackBot, Sender};
 
 mod commands;
-use commands::*;
+use commands::{RegisterCommandHandler, UnregisterCommandHandler, InfoCommandHandler, GameCommandHandler};
+
+static HELP_MESSAGE: &'static str = r#"foosbot, here to serve. beep boop.
+`!foos` or `!foos help` -- displays the commands
+`!foos register` -- register to play that day
+`!foos unregister` -- unregister to play that day, if previously registered
+`!foos info` -- see who's currently registered
+`!foos game` -- start a game now"#;
 
 fn main() {
     let token = env::var("FOOSBOT_API_TOKEN").ok().expect("Failed to get FOOSBOT_API_TOKEN environment variable.");
@@ -19,12 +26,7 @@ fn main() {
     let mut foosbot = SlackBot::new("foos", token);
 
     foosbot.on("help", Box::new(|sender: &mut Sender, _: &Vec<String>| {
-        sender.channel.write("foosbot, here to serve. beep boop.").unwrap();
-        sender.channel.write("  `!foos || !foos help` -- displays the commands").unwrap();
-        sender.channel.write("  `!foos register` -- register to play that day").unwrap();
-        sender.channel.write("  `!foos unregister` -- unregister to play that day, if previously registered").unwrap();
-        sender.channel.write("  `!foos info` -- see who's currently registered").unwrap();
-        sender.channel.write("  `!foos game` -- start a game now").unwrap();
+        sender.channel.write(HELP_MESSAGE).unwrap();
     }));
 
     foosbot.on("register", Box::new(RegisterCommandHandler::new(user_store.clone())));
