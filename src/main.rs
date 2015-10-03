@@ -26,7 +26,7 @@ fn main() {
     let mut foosbot = SlackBot::new("foos", token);
 
     foosbot.on("help", Box::new(|sender: &mut Sender, _: &Vec<String>| {
-        sender.channel.write(HELP_MESSAGE).unwrap();
+        sender.respond_in_channel(HELP_MESSAGE).unwrap();
     }));
 
     foosbot.on("register", Box::new(RegisterCommandHandler::new(user_store.clone())));

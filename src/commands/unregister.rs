@@ -18,10 +18,11 @@ impl UnregisterCommandHandler {
 
 impl CommandHandler for UnregisterCommandHandler {
     fn handle(&mut self, sender: &mut Sender, _: &Vec<String>) {
-        if self.registered_users.borrow_mut().remove(&sender.user.name[..]) {
-            sender.channel.write(format!("Removed {0} from the daily foosball pool!", sender.user.name)).unwrap();
+        let username = sender.user.name.clone();
+        if self.registered_users.borrow_mut().remove(&username[..]) {
+            sender.respond_in_channel(format!("Removed {0} from the daily foosball pool!", username)).unwrap();
         } else {
-            sender.channel.write(format!("{0} was not in the daily foosball pool.", sender.user.name)).unwrap();
+            sender.respond_in_channel(format!("{0} was not in the daily foosball pool.", username)).unwrap();
         }
     }
 }

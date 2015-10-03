@@ -19,6 +19,6 @@ impl InfoCommandHandler {
 impl CommandHandler for InfoCommandHandler {
     fn handle(&mut self, sender: &mut Sender, _: &Vec<String>) {
         let users = self.registered_users.borrow();
-        sender.channel.write(format!("Users in the pool: {:?}", users)).unwrap();
+        sender.respond_in_channel(format!("Users in the pool: {:?}", users)).unwrap();
     }
 }
